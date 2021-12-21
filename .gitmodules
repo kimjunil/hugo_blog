@@ -1,0 +1,3 @@
+[submodule "themes/listed"]
+	path = themes/listed
+	url = https://github.com/kimjunil/listed.git
