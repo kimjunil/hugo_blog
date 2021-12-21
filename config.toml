@@ -3,6 +3,15 @@ languageCode = 'ko-kr'
 title = 'My New Hugo Site'
 theme = 'listed'
 
+[frontmatter]
+  date  = [":filename", ":default"]
+  author = ""
+  github = "kimjunil"
+  facebook = ""
+  og_image = ""
+  sitename = "Liste"
+  twitter = ""
+
 [markup]
   [markup.highlight]
     anchorLineNos = false
