@@ -2,6 +2,7 @@ baseURL = 'https://kimjunil.github.io/'
 languageCode = 'ko-kr'
 title = 'My New Hugo Site'
 theme = 'listed'
+math = true
 
 [frontmatter]
   date  = [":filename", ":default"]
