@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Liste - https://kimjunil.github.io/">
+  <title>[프로그래머스] 뉴스 클러스터링 | My New Hugo Site</title>
+  <meta name="description" content="Minimalistic Hugo blogging theme">
+<meta property="og:title" content="[프로그래머스] 뉴스 클러스터링" />
+<meta property="og:description" content="https://programmers.co.kr/learn/courses/30/lessons/17677
+ 요약 # 두개의 문자열이 주어졌을 때 두 문자열의 자카드 유사도를 구하라!
+제한 사항 #  각 문자열의 길이는 2 이상, 1,000 이하이다. 입력으로 들어온 문자열은 두 글자씩 끊어서 다중집합의 원소로 만든다.  이때 영문자로 된 글자 쌍만 유효하고, 기타 공백이나 숫자, 특수 문자가 들어있는 경우는 그 글자 쌍을 버린다.   다중집합 원소 사이를 비교할 때, 대문자와 소문자의 차이는 무시한다.  자카드 유사도 # 자카드 유사도는 집합 간의 유사도를 검사하는 여러 방법 중의 하나로 알려져 있다." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://kimjunil.github.io/posts/algorithm-002/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-12-23T12:39:07+09:00" />
+<meta property="article:modified_time" content="2021-12-23T12:39:07+09:00" />
+
+
+  
+  <meta itemprop="name" content="[프로그래머스] 뉴스 클러스터링">
+<meta itemprop="description" content="https://programmers.co.kr/learn/courses/30/lessons/17677
+ 요약 # 두개의 문자열이 주어졌을 때 두 문자열의 자카드 유사도를 구하라!
+제한 사항 #  각 문자열의 길이는 2 이상, 1,000 이하이다. 입력으로 들어온 문자열은 두 글자씩 끊어서 다중집합의 원소로 만든다.  이때 영문자로 된 글자 쌍만 유효하고, 기타 공백이나 숫자, 특수 문자가 들어있는 경우는 그 글자 쌍을 버린다.   다중집합 원소 사이를 비교할 때, 대문자와 소문자의 차이는 무시한다.  자카드 유사도 # 자카드 유사도는 집합 간의 유사도를 검사하는 여러 방법 중의 하나로 알려져 있다."><meta itemprop="datePublished" content="2021-12-23T12:39:07+09:00" />
+<meta itemprop="dateModified" content="2021-12-23T12:39:07+09:00" />
+<meta itemprop="wordCount" content="338">
+<meta itemprop="keywords" content="algorithm,programmers," />
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[프로그래머스] 뉴스 클러스터링"/>
+<meta name="twitter:description" content="https://programmers.co.kr/learn/courses/30/lessons/17677
+ 요약 # 두개의 문자열이 주어졌을 때 두 문자열의 자카드 유사도를 구하라!
+제한 사항 #  각 문자열의 길이는 2 이상, 1,000 이하이다. 입력으로 들어온 문자열은 두 글자씩 끊어서 다중집합의 원소로 만든다.  이때 영문자로 된 글자 쌍만 유효하고, 기타 공백이나 숫자, 특수 문자가 들어있는 경우는 그 글자 쌍을 버린다.   다중집합 원소 사이를 비교할 때, 대문자와 소문자의 차이는 무시한다.  자카드 유사도 # 자카드 유사도는 집합 간의 유사도를 검사하는 여러 방법 중의 하나로 알려져 있다."/>
+
+  <link rel="canonical" href="https://kimjunil.github.io/posts/algorithm-002/">
+  <meta name="monetization" content="$twitter.xrptipbot.com/ronaldsvilcins">
+  <link rel="dns-prefetch" href="https://www.google-analytics.com">
+  <link href="https://www.google-analytics.com" rel="preconnect" crossorigin>
+  <link rel="alternate" type="application/atom+xml" title="My New Hugo Site" href="https://kimjunil.github.io/atom.xml" />
+  <link rel="alternate" type="application/json" title="My New Hugo Site" href="https://kimjunil.github.io/feed.json" />
+  <link rel="shortcut icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=">
+  
+  <style>*,:after,:before{box-sizing:border-box;padding:0}body{font:1rem/1.5 '-apple-system',BlinkMacSystemFont,avenir next,avenir,helvetica,helvetica neue,ubuntu,roboto,noto,segoe ui,arial,sans-serif;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;padding:2rem;color:#000}.skip-link{position:absolute;top:-40px;left:0;background:#eee;z-index:100}.skip-link:focus{top:0}h1,h2,h3,h4,h5,strong,b{font-size:inherit;font-weight:600}header{line-height:2;padding-bottom:1.5rem}.link{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-decoration:none}.time{font-variant-numeric:tabular-nums;white-space:nowrap}blockquote{border-left:5px solid #eee;padding-left:1rem;margin:0}a,a:visited{color:inherit}a:hover,a.heading-link{text-decoration:none}pre{padding:.5rem;overflow:auto;overflow-x:scroll;overflow-wrap:normal}code,pre{font-family:San Francisco Mono,Monaco,consolas,lucida console,dejavu sans mono,bitstream vera sans mono,monospace;font-size:normal;font-size:small;background:#282a36}code{padding:.1rem;border:none}ul{list-style-type:square}ul,ol{padding-left:1.2rem}.list{line-height:2;list-style-type:none;padding-left:0}.list li{padding-bottom:.1rem}.meta{color:#777}.content{max-width:70ch;margin:0 auto}header{line-height:2;display:flex;justify-content:space-between;padding-bottom:1rem}header a{text-decoration:none}header ul{list-style-type:none;padding:0}header li,header a{display:inline}h2.post{padding-top:.5rem}header ul a:first-child{padding-left:1rem}.nav{height:1px;background:#000;content:'';max-width:10%}.list li{display:flex;align-items:baseline}.list li time{flex:initial}.hr-list{margin-top:0;margin-bottom:0;margin-right:.5rem;margin-left:.5rem;height:1px;border:0;border-bottom:1px dotted #ccc;flex:1 0 1rem}.m,hr{border:0;margin:3rem 0}img{max-width:100%;height:auto}</style>
+
+  
+
+
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "articleSection": "posts",
+    "name": "[프로그래머스] 뉴스 클러스터링",
+    "headline": "[프로그래머스] 뉴스 클러스터링",
+    "alternativeHeadline": "",
+    "description": "https:\/\/programmers.co.kr\/learn\/courses\/30\/lessons\/17677\n 요약 # 두개의 문자열이 주어졌을 때 두 문자열의 자카드 유사도를 구하라!\n제한 사항 #  각 문자열의 길이는 2 이상, 1,000 이하이다. 입력으로 들어온 문자열은 두 글자씩 끊어서 다중집합의 원소로 만든다.  이때 영문자로 된 글자 쌍만 유효하고, 기타 공백이나 숫자, 특수 문자가 들어있는 경우는 그 글자 쌍을 버린다.   다중집합 원소 사이를 비교할 때, 대문자와 소문자의 차이는 무시한다.  자카드 유사도 # 자카드 유사도는 집합 간의 유사도를 검사하는 여러 방법 중의 하나로 알려져 있다.",
+    "inLanguage": "ko-kr",
+    "isFamilyFriendly": "true",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https:\/\/kimjunil.github.io\/posts\/algorithm-002\/"
+    },
+    "author" : {
+        "@type": "Person",
+        "name": ""
+    },
+    "creator" : {
+        "@type": "Person",
+        "name": ""
+    },
+    "accountablePerson" : {
+        "@type": "Person",
+        "name": ""
+    },
+    "copyrightHolder" : "My New Hugo Site",
+    "copyrightYear" : "2021",
+    "dateCreated": "2021-12-23T12:39:07.00Z",
+    "datePublished": "2021-12-23T12:39:07.00Z",
+    "dateModified": "2021-12-23T12:39:07.00Z",
+    "publisher":{
+        "@type":"Organization",
+        "name": "My New Hugo Site",
+        "url": "https://kimjunil.github.io/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https:\/\/kimjunil.github.io\/",
+            "width":"32",
+            "height":"32"
+        }
+    },
+    "image": "https://kimjunil.github.io/",
+    "url" : "https:\/\/kimjunil.github.io\/posts\/algorithm-002\/",
+    "wordCount" : "338",
+    "genre" : [ "algorithm" , "programmers" ],
+    "keywords" : [ "algorithm" , "programmers" ]
+}
+</script>
+
+
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main</a>
+<main id="main">
+  <div class="content">
+    <header>
+<p style="padding: 0;margin: 0;"><a href="/"><b>Listed</b></a></p>
+<ul style="padding: 0;margin: 0;">
+  <li><a href="/projects">Projects</a></li>
+  <li><a href="/about">About</a></li> 
+</ul>
+</header>
+<hr class="hr-list" style="padding: 0;margin: 0;">
+      
+        
+      <h2 class="post">[프로그래머스] 뉴스 클러스터링</h2>
+      <blockquote>
+<p><a href="https://programmers.co.kr/learn/courses/30/lessons/17677">https://programmers.co.kr/learn/courses/30/lessons/17677</a></p>
+</blockquote>
+<h1 id="요약">요약 <a href="#%ec%9a%94%ec%95%bd" class="hash g">#</a></h1>
+<p>두개의 문자열이 주어졌을 때 두 문자열의 자카드 유사도를 구하라!</p>
+<h1 id="제한-사항">제한 사항 <a href="#%ec%a0%9c%ed%95%9c-%ec%82%ac%ed%95%ad" class="hash g">#</a></h1>
+<ul>
+<li>각 문자열의 길이는 2 이상, 1,000 이하이다.</li>
+<li>입력으로 들어온 문자열은 두 글자씩 끊어서 다중집합의 원소로 만든다.
+<ul>
+<li>이때 영문자로 된 글자 쌍만 유효하고, 기타 공백이나 숫자, 특수 문자가 들어있는 경우는 그 글자 쌍을 버린다.</li>
+</ul>
+</li>
+<li>다중집합 원소 사이를 비교할 때, 대문자와 소문자의 차이는 무시한다.</li>
+</ul>
+<h1 id="자카드-유사도">자카드 유사도 <a href="#%ec%9e%90%ec%b9%b4%eb%93%9c-%ec%9c%a0%ec%82%ac%eb%8f%84" class="hash g">#</a></h1>
+<p>자카드 유사도는 집합 간의 유사도를 검사하는 여러 방법 중의 하나로 알려져 있다. 두 집합 A, B 사이의 자카드 유사도 J(A, B)는 두 집합의 교집합 크기를 두 집합의 합집합 크기로 나눈 값으로 정의된다.</p>
+<h1 id="try-1">Try 1 <a href="#try-1" class="hash g">#</a></h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#ff79c6">import</span> re
+
+<span style="color:#ff79c6">def</span> <span style="color:#50fa7b">solution</span>(str1, str2):
+    <span style="color:#6272a4"># 1.소문자 변환</span>
+    <span style="color:#6272a4"># 2.각 문자열을 글자쌍 배열로 분리</span>
+    <span style="color:#6272a4"># 3.특수문자가 들어있는 원소 제거</span>
+    <span style="color:#6272a4"># 4.문자쌍의 교집합/합집합 갯수 계산</span>
+    <span style="color:#6272a4"># 5.자카드유사도 계산</span>
+    
+    str1, str2 <span style="color:#ff79c6">=</span> str1<span style="color:#ff79c6">.</span>lower(), str2<span style="color:#ff79c6">.</span>lower()
+    list1 <span style="color:#ff79c6">=</span> [str1[i:i<span style="color:#ff79c6">+</span><span style="color:#bd93f9">2</span>] <span style="color:#ff79c6">for</span> i <span style="color:#ff79c6">in</span> <span style="color:#8be9fd;font-style:italic">range</span>(<span style="color:#8be9fd;font-style:italic">len</span>(str1)<span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>)]
+    list2 <span style="color:#ff79c6">=</span> [str2[i:i<span style="color:#ff79c6">+</span><span style="color:#bd93f9">2</span>] <span style="color:#ff79c6">for</span> i <span style="color:#ff79c6">in</span> <span style="color:#8be9fd;font-style:italic">range</span>(<span style="color:#8be9fd;font-style:italic">len</span>(str2)<span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>)]
+    
+    list1 <span style="color:#ff79c6">=</span> [x <span style="color:#ff79c6">for</span> x <span style="color:#ff79c6">in</span> list1 <span style="color:#ff79c6">if</span> re<span style="color:#ff79c6">.</span>match(<span style="color:#f1fa8c">&#34;[a-z]</span><span style="color:#f1fa8c">{2}</span><span style="color:#f1fa8c">&#34;</span>, x)<span style="color:#ff79c6">!=</span><span style="color:#ff79c6">None</span>]
+    list2 <span style="color:#ff79c6">=</span> [x <span style="color:#ff79c6">for</span> x <span style="color:#ff79c6">in</span> list2 <span style="color:#ff79c6">if</span> re<span style="color:#ff79c6">.</span>match(<span style="color:#f1fa8c">&#34;[a-z]</span><span style="color:#f1fa8c">{2}</span><span style="color:#f1fa8c">&#34;</span>, x)<span style="color:#ff79c6">!=</span><span style="color:#ff79c6">None</span>]
+    
+    A, B <span style="color:#ff79c6">=</span> list1<span style="color:#ff79c6">.</span>copy(), list2<span style="color:#ff79c6">.</span>copy()
+
+    intersection <span style="color:#ff79c6">=</span> []
+    
+    <span style="color:#ff79c6">for</span> item <span style="color:#ff79c6">in</span> B:
+        <span style="color:#ff79c6">if</span> item <span style="color:#ff79c6">in</span> A:
+            intersection<span style="color:#ff79c6">.</span>append(item)
+            A<span style="color:#ff79c6">.</span>remove(item)
+        <span style="color:#ff79c6">else</span>:
+            <span style="color:#ff79c6">continue</span>
+
+    union <span style="color:#ff79c6">=</span> list1<span style="color:#ff79c6">+</span>list2
+    <span style="color:#ff79c6">for</span> item <span style="color:#ff79c6">in</span> intersection:
+        union<span style="color:#ff79c6">.</span>remove(item)
+    
+    <span style="color:#ff79c6">if</span> <span style="color:#8be9fd;font-style:italic">len</span>(intersection)<span style="color:#ff79c6">==</span><span style="color:#bd93f9">0</span> <span style="color:#ff79c6">and</span> <span style="color:#8be9fd;font-style:italic">len</span>(union)<span style="color:#ff79c6">==</span><span style="color:#bd93f9">0</span>:
+        <span style="color:#ff79c6">return</span> <span style="color:#bd93f9">65536</span>
+    <span style="color:#ff79c6">else</span>:
+        <span style="color:#ff79c6">return</span> <span style="color:#8be9fd;font-style:italic">int</span>(<span style="color:#8be9fd;font-style:italic">len</span>(intersection)<span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">len</span>(union)<span style="color:#ff79c6">*</span><span style="color:#bd93f9">65536</span>)
+</code></pre></div><h1 id="인상깊었던-다른사람의-풀이-1">인상깊었던 다른사람의 풀이 1 <a href="#%ec%9d%b8%ec%83%81%ea%b9%8a%ec%97%88%eb%8d%98-%eb%8b%a4%eb%a5%b8%ec%82%ac%eb%9e%8c%ec%9d%98-%ed%92%80%ec%9d%b4-1" class="hash g">#</a></h1>
+<ol>
+<li>isalpha() 를 사용하면 정규표현식을 사용하지 않아도 된다.</li>
+<li>다중집합의 합집합과 교집합을 구하는 과정이 간결하다.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">solution</span>(str1, str2):
+    set1 <span style="color:#ff79c6">=</span> [str1[i:i<span style="color:#ff79c6">+</span><span style="color:#bd93f9">2</span>]<span style="color:#ff79c6">.</span>lower() <span style="color:#ff79c6">for</span> i <span style="color:#ff79c6">in</span> <span style="color:#8be9fd;font-style:italic">range</span>(<span style="color:#8be9fd;font-style:italic">len</span>(str1) <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">1</span>) <span style="color:#ff79c6">if</span> str1[i:i<span style="color:#ff79c6">+</span><span style="color:#bd93f9">2</span>]<span style="color:#ff79c6">.</span>lower()<span style="color:#ff79c6">.</span>isalpha()]
+    set2 <span style="color:#ff79c6">=</span> [str2[i:i<span style="color:#ff79c6">+</span><span style="color:#bd93f9">2</span>]<span style="color:#ff79c6">.</span>lower() <span style="color:#ff79c6">for</span> i <span style="color:#ff79c6">in</span> <span style="color:#8be9fd;font-style:italic">range</span>(<span style="color:#8be9fd;font-style:italic">len</span>(str2) <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">1</span>) <span style="color:#ff79c6">if</span> str2[i:i<span style="color:#ff79c6">+</span><span style="color:#bd93f9">2</span>]<span style="color:#ff79c6">.</span>lower()<span style="color:#ff79c6">.</span>isalpha()]
+
+    uu <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">sum</span>([<span style="color:#8be9fd;font-style:italic">min</span>(set1<span style="color:#ff79c6">.</span>count(u), set2<span style="color:#ff79c6">.</span>count(u)) <span style="color:#ff79c6">for</span> u <span style="color:#ff79c6">in</span> <span style="color:#8be9fd;font-style:italic">list</span>(<span style="color:#8be9fd;font-style:italic">set</span>(set1) <span style="color:#ff79c6">&amp;</span> <span style="color:#8be9fd;font-style:italic">set</span>(set2))])
+    nn <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">sum</span>([<span style="color:#8be9fd;font-style:italic">max</span>(set1<span style="color:#ff79c6">.</span>count(n), set2<span style="color:#ff79c6">.</span>count(n)) <span style="color:#ff79c6">for</span> n <span style="color:#ff79c6">in</span> <span style="color:#8be9fd;font-style:italic">list</span>(<span style="color:#8be9fd;font-style:italic">set</span>(set1) <span style="color:#ff79c6">|</span> <span style="color:#8be9fd;font-style:italic">set</span>(set2))])
+
+    <span style="color:#ff79c6">if</span> nn <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">0</span> <span style="color:#ff79c6">and</span> uu <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">0</span>:
+        <span style="color:#ff79c6">return</span> <span style="color:#bd93f9">65536</span>
+    <span style="color:#ff79c6">return</span> <span style="color:#8be9fd;font-style:italic">int</span>(<span style="color:#8be9fd;font-style:italic">float</span>(uu)<span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">float</span>(nn) <span style="color:#ff79c6">*</span> <span style="color:#bd93f9">65536</span>)
+</code></pre></div><h1 id="인상깊었던-다른사람의-풀이-2">인상깊었던 다른사람의 풀이 2 <a href="#%ec%9d%b8%ec%83%81%ea%b9%8a%ec%97%88%eb%8d%98-%eb%8b%a4%eb%a5%b8%ec%82%ac%eb%9e%8c%ec%9d%98-%ed%92%80%ec%9d%b4-2" class="hash g">#</a></h1>
+<ol>
+<li>lambda를 사용하였다.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#ff79c6">import</span> math
+<span style="color:#ff79c6">from</span> collections <span style="color:#ff79c6">import</span> Counter
+
+<span style="color:#ff79c6">def</span> <span style="color:#50fa7b">solution</span>(str1, str2):
+    set1 <span style="color:#ff79c6">=</span> Counter([str1[i:i<span style="color:#ff79c6">+</span><span style="color:#bd93f9">2</span>]<span style="color:#ff79c6">.</span>upper() <span style="color:#ff79c6">for</span> i <span style="color:#ff79c6">in</span> <span style="color:#8be9fd;font-style:italic">range</span>(<span style="color:#bd93f9">0</span>, <span style="color:#8be9fd;font-style:italic">len</span>(str1)<span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>) <span style="color:#ff79c6">if</span> str1[i:i<span style="color:#ff79c6">+</span><span style="color:#bd93f9">2</span>]<span style="color:#ff79c6">.</span>isalpha()])
+    set2 <span style="color:#ff79c6">=</span> Counter([str2[i:i<span style="color:#ff79c6">+</span><span style="color:#bd93f9">2</span>]<span style="color:#ff79c6">.</span>upper() <span style="color:#ff79c6">for</span> i <span style="color:#ff79c6">in</span> <span style="color:#8be9fd;font-style:italic">range</span>(<span style="color:#bd93f9">0</span>, <span style="color:#8be9fd;font-style:italic">len</span>(str2)<span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>) <span style="color:#ff79c6">if</span> str2[i:i<span style="color:#ff79c6">+</span><span style="color:#bd93f9">2</span>]<span style="color:#ff79c6">.</span>isalpha()])
+    J <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">lambda</span> A, B: <span style="color:#bd93f9">1</span> <span style="color:#ff79c6">if</span> <span style="color:#8be9fd;font-style:italic">len</span>(A) <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">0</span> <span style="color:#ff79c6">and</span> <span style="color:#8be9fd;font-style:italic">len</span>(B) <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">0</span> <span style="color:#ff79c6">else</span> <span style="color:#8be9fd;font-style:italic">sum</span>((A <span style="color:#ff79c6">&amp;</span> B)<span style="color:#ff79c6">.</span>values()) <span style="color:#ff79c6">/</span> <span style="color:#8be9fd;font-style:italic">sum</span>((A <span style="color:#ff79c6">|</span> B)<span style="color:#ff79c6">.</span>values())
+    <span style="color:#ff79c6">return</span> math<span style="color:#ff79c6">.</span>floor(J(set1, set2) <span style="color:#ff79c6">*</span> <span style="color:#bd93f9">65536</span>)
+</code></pre></div>
+      
+      
+      
+      
+  </div>
+</main>
+</body>
+</html>

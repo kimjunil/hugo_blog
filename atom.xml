@@ -1,0 +1,174 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    
+    <title>My New Hugo Site</title>
+    <description>Minimalistic Hugo blogging theme</description>
+    <link>https://kimjunil.github.io/</link>
+    
+    <language>en</language>
+    <copyright>Copyright 2021, Ronalds Vilcins</copyright>
+    <lastBuildDate>Thu, 23 Dec 2021 12:39:07 +0900</lastBuildDate>
+    <generator>Hugo - gohugo.io</generator>
+    <docs>http://cyber.harvard.edu/rss/rss.html</docs>
+    <atom:link href="https://ronaldsvilcins.com/atom.xml" rel="self" type="application/atom+xml"/>
+    
+    <item>
+      <title>[프로그래머스] 뉴스 클러스터링</title>
+      <link>https://kimjunil.github.io/posts/algorithm-002/</link>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&#34;https://programmers.co.kr/learn/courses/30/lessons/17677&#34;&gt;https://programmers.co.kr/learn/courses/30/lessons/17677&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;요약&#34;&gt;요약 &lt;a href=&#34;#%ec%9a%94%ec%95%bd&#34; class=&#34;hash g&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;
+&lt;p&gt;두개의 문자열이 주어졌을 때 두 문자열의 자카드 유사도를 구하라!&lt;/p&gt;
+&lt;h1 id=&#34;제한-사항&#34;&gt;제한 사항 &lt;a href=&#34;#%ec%a0%9c%ed%95%9c-%ec%82%ac%ed%95%ad&#34; class=&#34;hash g&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;각 문자열의 길이는 2 이상, 1,000 이하이다.&lt;/li&gt;
+&lt;li&gt;입력으로 들어온 문자열은 두 글자씩 끊어서 다중집합의 원소로 만든다.
+&lt;ul&gt;
+&lt;li&gt;이때 영문자로 된 글자 쌍만 유효하고, 기타 공백이나 숫자, 특수 문자가 들어있는 경우는 그 글자 쌍을 버린다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;다중집합 원소 사이를 비교할 때, 대문자와 소문자의 차이는 무시한다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;자카드-유사도&#34;&gt;자카드 유사도 &lt;a href=&#34;#%ec%9e%90%ec%b9%b4%eb%93%9c-%ec%9c%a0%ec%82%ac%eb%8f%84&#34; class=&#34;hash g&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;
+&lt;p&gt;자카드 유사도는 집합 간의 유사도를 검사하는 여러 방법 중의 하나로 알려져 있다. 두 집합 A, B 사이의 자카드 유사도 J(A, B)는 두 집합의 교집합 크기를 두 집합의 합집합 크기로 나눈 값으로 정의된다.&lt;/p&gt;
+&lt;h1 id=&#34;try-1&#34;&gt;Try 1 &lt;a href=&#34;#try-1&#34; class=&#34;hash g&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#ff79c6&#34;&gt;import&lt;/span&gt; re
+
+&lt;span style=&#34;color:#ff79c6&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#50fa7b&#34;&gt;solution&lt;/span&gt;(str1, str2):
+    &lt;span style=&#34;color:#6272a4&#34;&gt;# 1.소문자 변환&lt;/span&gt;
+    &lt;span style=&#34;color:#6272a4&#34;&gt;# 2.각 문자열을 글자쌍 배열로 분리&lt;/span&gt;
+    &lt;span style=&#34;color:#6272a4&#34;&gt;# 3.특수문자가 들어있는 원소 제거&lt;/span&gt;
+    &lt;span style=&#34;color:#6272a4&#34;&gt;# 4.문자쌍의 교집합/합집합 갯수 계산&lt;/span&gt;
+    &lt;span style=&#34;color:#6272a4&#34;&gt;# 5.자카드유사도 계산&lt;/span&gt;
+    
+    str1, str2 &lt;span style=&#34;color:#ff79c6&#34;&gt;=&lt;/span&gt; str1&lt;span style=&#34;color:#ff79c6&#34;&gt;.&lt;/span&gt;lower(), str2&lt;span style=&#34;color:#ff79c6&#34;&gt;.&lt;/span&gt;lower()
+    list1 &lt;span style=&#34;color:#ff79c6&#34;&gt;=&lt;/span&gt; [str1[i:i&lt;span style=&#34;color:#ff79c6&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#bd93f9&#34;&gt;2&lt;/span&gt;] &lt;span style=&#34;color:#ff79c6&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#ff79c6&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#8be9fd;font-style:italic&#34;&gt;range&lt;/span&gt;(&lt;span style=&#34;color:#8be9fd;font-style:italic&#34;&gt;len&lt;/span&gt;(str1)&lt;span style=&#34;color:#ff79c6&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#bd93f9&#34;&gt;1&lt;/span&gt;)]
+    list2 &lt;span style=&#34;color:#ff79c6&#34;&gt;=&lt;/span&gt; [str2[i:i&lt;span style=&#34;color:#ff79c6&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#bd93f9&#34;&gt;2&lt;/span&gt;] &lt;span style=&#34;color:#ff79c6&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#ff79c6&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#8be9fd;font-style:italic&#34;&gt;range&lt;/span&gt;(&lt;span style=&#34;color:#8be9fd;font-style:italic&#34;&gt;len&lt;/span&gt;(str2)&lt;span style=&#34;color:#ff79c6&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#bd93f9&#34;&gt;1&lt;/span&gt;)]
+    
+    list1 &lt;span style=&#34;color:#ff79c6&#34;&gt;=&lt;/span&gt; [x &lt;span style=&#34;color:#ff79c6&#34;&gt;for&lt;/span&gt; x &lt;span style=&#34;color:#ff79c6&#34;&gt;in&lt;/span&gt; list1 &lt;span style=&#34;color:#ff79c6&#34;&gt;if&lt;/span&gt; re&lt;span style=&#34;color:#ff79c6&#34;&gt;.&lt;/span&gt;match(&lt;span style=&#34;color:#f1fa8c&#34;&gt;&amp;#34;[a-z]&lt;/span&gt;&lt;span style=&#34;color:#f1fa8c&#34;&gt;{2}&lt;/span&gt;&lt;span style=&#34;color:#f1fa8c&#34;&gt;&amp;#34;&lt;/span&gt;, x)&lt;span style=&#34;color:#ff79c6&#34;&gt;!=&lt;/span&gt;&lt;span style=&#34;color:#ff79c6&#34;&gt;None&lt;/span&gt;]
+    list2 &lt;span style=&#34;color:#ff79c6&#34;&gt;=&lt;/span&gt; [x &lt;span style=&#34;color:#ff79c6&#34;&gt;for&lt;/span&gt; x &lt;span style=&#34;color:#ff79c6&#34;&gt;in&lt;/span&gt; list2 &lt;span style=&#34;color:#ff79c6&#34;&gt;if&lt;/span&gt; re&lt;span style=&#34;color:#ff79c6&#34;&gt;.&lt;/span&gt;match(&lt;span style=&#34;color:#f1fa8c&#34;&gt;&amp;#34;[a-z]&lt;/span&gt;&lt;span style=&#34;color:#f1fa8c&#34;&gt;{2}&lt;/span&gt;&lt;span style=&#34;color:#f1fa8c&#34;&gt;&amp;#34;&lt;/span&gt;, x)&lt;span style=&#34;color:#ff79c6&#34;&gt;!=&lt;/span&gt;&lt;span style=&#34;color:#ff79c6&#34;&gt;None&lt;/span&gt;]
+    
+    A, B &lt;span style=&#34;color:#ff79c6&#34;&gt;=&lt;/span&gt; list1&lt;span style=&#34;color:#ff79c6&#34;&gt;.&lt;/span&gt;copy(), list2&lt;span style=&#34;color:#ff79c6&#34;&gt;.&lt;/span&gt;copy()
+
+    intersection &lt;span style=&#34;color:#ff79c6&#34;&gt;=&lt;/span&gt; []
+    
+    &lt;span style=&#34;color:#ff79c6&#34;&gt;for&lt;/span&gt; item &lt;span style=&#34;color:#ff79c6&#34;&gt;in&lt;/span&gt; B:
+        &lt;span style=&#34;color:#ff79c6&#34;&gt;if&lt;/span&gt; item &lt;span style=&#34;color:#ff79c6&#34;&gt;in&lt;/span&gt; A:
+            intersection&lt;span style=&#34;color:#ff79c6&#34;&gt;.&lt;/span&gt;append(item)
+            A&lt;span style=&#34;color:#ff79c6&#34;&gt;.&lt;/span&gt;remove(item)
+        &lt;span style=&#34;color:#ff79c6&#34;&gt;else&lt;/span&gt;:
+            &lt;span style=&#34;color:#ff79c6&#34;&gt;continue&lt;/span&gt;
+
+    union &lt;span style=&#34;color:#ff79c6&#34;&gt;=&lt;/span&gt; list1&lt;span style=&#34;color:#ff79c6&#34;&gt;+&lt;/span&gt;list2
+    &lt;span style=&#34;color:#ff79c6&#34;&gt;for&lt;/span&gt; item &lt;span style=&#34;color:#ff79c6&#34;&gt;in&lt;/span&gt; intersection:
+        union&lt;span style=&#34;color:#ff79c6&#34;&gt;.&lt;/span&gt;remove(item)
+    
+    &lt;span style=&#34;color:#ff79c6&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#8be9fd;font-style:italic&#34;&gt;len&lt;/span&gt;(intersection)&lt;span style=&#34;color:#ff79c6&#34;&gt;==&lt;/span&gt;&lt;span style=&#34;color:#bd93f9&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#ff79c6&#34;&gt;and&lt;/span&gt; &lt;span style=&#34;color:#8be9fd;font-style:italic&#34;&gt;len&lt;/span&gt;(union)&lt;span style=&#34;color:#ff79c6&#34;&gt;==&lt;/span&gt;&lt;span style=&#34;color:#bd93f9&#34;&gt;0&lt;/span&gt;:
+        &lt;span style=&#34;color:#ff79c6&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#bd93f9&#34;&gt;65536&lt;/span&gt;
+    &lt;span style=&#34;color:#ff79c6&#34;&gt;else&lt;/span&gt;:
+        &lt;span style=&#34;color:#ff79c6&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#8be9fd;font-style:italic&#34;&gt;int&lt;/span&gt;(&lt;span style=&#34;color:#8be9fd;font-style:italic&#34;&gt;len&lt;/span&gt;(intersection)&lt;span style=&#34;color:#ff79c6&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#8be9fd;font-style:italic&#34;&gt;len&lt;/span&gt;(union)&lt;span style=&#34;color:#ff79c6&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#bd93f9&#34;&gt;65536&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;인상깊었던-다른사람의-풀이-1&#34;&gt;인상깊었던 다른사람의 풀이 1 &lt;a href=&#34;#%ec%9d%b8%ec%83%81%ea%b9%8a%ec%97%88%eb%8d%98-%eb%8b%a4%eb%a5%b8%ec%82%ac%eb%9e%8c%ec%9d%98-%ed%92%80%ec%9d%b4-1&#34; class=&#34;hash g&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;isalpha() 를 사용하면 정규표현식을 사용하지 않아도 된다.&lt;/li&gt;
+&lt;li&gt;다중집합의 합집합과 교집합을 구하는 과정이 간결하다.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#ff79c6&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#50fa7b&#34;&gt;solution&lt;/span&gt;(str1, str2):
+    set1 &lt;span style=&#34;color:#ff79c6&#34;&gt;=&lt;/span&gt; [str1[i:i&lt;span style=&#34;color:#ff79c6&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#bd93f9&#34;&gt;2&lt;/span&gt;]&lt;span style=&#34;color:#ff79c6&#34;&gt;.&lt;/span&gt;lower() &lt;span style=&#34;color:#ff79c6&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#ff79c6&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#8be9fd;font-style:italic&#34;&gt;range&lt;/span&gt;(&lt;span style=&#34;color:#8be9fd;font-style:italic&#34;&gt;len&lt;/span&gt;(str1) &lt;span style=&#34;color:#ff79c6&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#bd93f9&#34;&gt;1&lt;/span&gt;) &lt;span style=&#34;color:#ff79c6&#34;&gt;if&lt;/span&gt; str1[i:i&lt;span style=&#34;color:#ff79c6&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#bd93f9&#34;&gt;2&lt;/span&gt;]&lt;span style=&#34;color:#ff79c6&#34;&gt;.&lt;/span&gt;lower()&lt;span style=&#34;color:#ff79c6&#34;&gt;.&lt;/span&gt;isalpha()]
+    set2 &lt;span style=&#34;color:#ff79c6&#34;&gt;=&lt;/span&gt; [str2[i:i&lt;span style=&#34;color:#ff79c6&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#bd93f9&#34;&gt;2&lt;/span&gt;]&lt;span style=&#34;color:#ff79c6&#34;&gt;.&lt;/span&gt;lower() &lt;span style=&#34;color:#ff79c6&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#ff79c6&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#8be9fd;font-style:italic&#34;&gt;range&lt;/span&gt;(&lt;span style=&#34;color:#8be9fd;font-style:italic&#34;&gt;len&lt;/span&gt;(str2) &lt;span style=&#34;color:#ff79c6&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#bd93f9&#34;&gt;1&lt;/span&gt;) &lt;span style=&#34;color:#ff79c6&#34;&gt;if&lt;/span&gt; str2[i:i&lt;span style=&#34;color:#ff79c6&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#bd93f9&#34;&gt;2&lt;/span&gt;]&lt;span style=&#34;color:#ff79c6&#34;&gt;.&lt;/span&gt;lower()&lt;span style=&#34;color:#ff79c6&#34;&gt;.&lt;/span&gt;isalpha()]
+
+    uu &lt;span style=&#34;color:#ff79c6&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#8be9fd;font-style:italic&#34;&gt;sum&lt;/span&gt;([&lt;span style=&#34;color:#8be9fd;font-style:italic&#34;&gt;min&lt;/span&gt;(set1&lt;span style=&#34;color:#ff79c6&#34;&gt;.&lt;/span&gt;count(u), set2&lt;span style=&#34;color:#ff79c6&#34;&gt;.&lt;/span&gt;count(u)) &lt;span style=&#34;color:#ff79c6&#34;&gt;for&lt;/span&gt; u &lt;span style=&#34;color:#ff79c6&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#8be9fd;font-style:italic&#34;&gt;list&lt;/span&gt;(&lt;span style=&#34;color:#8be9fd;font-style:italic&#34;&gt;set&lt;/span&gt;(set1) &lt;span style=&#34;color:#ff79c6&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#8be9fd;font-style:italic&#34;&gt;set&lt;/span&gt;(set2))])
+    nn &lt;span style=&#34;color:#ff79c6&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#8be9fd;font-style:italic&#34;&gt;sum&lt;/span&gt;([&lt;span style=&#34;color:#8be9fd;font-style:italic&#34;&gt;max&lt;/span&gt;(set1&lt;span style=&#34;color:#ff79c6&#34;&gt;.&lt;/span&gt;count(n), set2&lt;span style=&#34;color:#ff79c6&#34;&gt;.&lt;/span&gt;count(n)) &lt;span style=&#34;color:#ff79c6&#34;&gt;for&lt;/span&gt; n &lt;span style=&#34;color:#ff79c6&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#8be9fd;font-style:italic&#34;&gt;list&lt;/span&gt;(&lt;span style=&#34;color:#8be9fd;font-style:italic&#34;&gt;set&lt;/span&gt;(set1) &lt;span style=&#34;color:#ff79c6&#34;&gt;|&lt;/span&gt; &lt;span style=&#34;color:#8be9fd;font-style:italic&#34;&gt;set&lt;/span&gt;(set2))])
+
+    &lt;span style=&#34;color:#ff79c6&#34;&gt;if&lt;/span&gt; nn &lt;span style=&#34;color:#ff79c6&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#bd93f9&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#ff79c6&#34;&gt;and&lt;/span&gt; uu &lt;span style=&#34;color:#ff79c6&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#bd93f9&#34;&gt;0&lt;/span&gt;:
+        &lt;span style=&#34;color:#ff79c6&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#bd93f9&#34;&gt;65536&lt;/span&gt;
+    &lt;span style=&#34;color:#ff79c6&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#8be9fd;font-style:italic&#34;&gt;int&lt;/span&gt;(&lt;span style=&#34;color:#8be9fd;font-style:italic&#34;&gt;float&lt;/span&gt;(uu)&lt;span style=&#34;color:#ff79c6&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#8be9fd;font-style:italic&#34;&gt;float&lt;/span&gt;(nn) &lt;span style=&#34;color:#ff79c6&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#bd93f9&#34;&gt;65536&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;인상깊었던-다른사람의-풀이-2&#34;&gt;인상깊었던 다른사람의 풀이 2 &lt;a href=&#34;#%ec%9d%b8%ec%83%81%ea%b9%8a%ec%97%88%eb%8d%98-%eb%8b%a4%eb%a5%b8%ec%82%ac%eb%9e%8c%ec%9d%98-%ed%92%80%ec%9d%b4-2&#34; class=&#34;hash g&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;lambda를 사용하였다.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#ff79c6&#34;&gt;import&lt;/span&gt; math
+&lt;span style=&#34;color:#ff79c6&#34;&gt;from&lt;/span&gt; collections &lt;span style=&#34;color:#ff79c6&#34;&gt;import&lt;/span&gt; Counter
+
+&lt;span style=&#34;color:#ff79c6&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#50fa7b&#34;&gt;solution&lt;/span&gt;(str1, str2):
+    set1 &lt;span style=&#34;color:#ff79c6&#34;&gt;=&lt;/span&gt; Counter([str1[i:i&lt;span style=&#34;color:#ff79c6&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#bd93f9&#34;&gt;2&lt;/span&gt;]&lt;span style=&#34;color:#ff79c6&#34;&gt;.&lt;/span&gt;upper() &lt;span style=&#34;color:#ff79c6&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#ff79c6&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#8be9fd;font-style:italic&#34;&gt;range&lt;/span&gt;(&lt;span style=&#34;color:#bd93f9&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#8be9fd;font-style:italic&#34;&gt;len&lt;/span&gt;(str1)&lt;span style=&#34;color:#ff79c6&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#bd93f9&#34;&gt;1&lt;/span&gt;) &lt;span style=&#34;color:#ff79c6&#34;&gt;if&lt;/span&gt; str1[i:i&lt;span style=&#34;color:#ff79c6&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#bd93f9&#34;&gt;2&lt;/span&gt;]&lt;span style=&#34;color:#ff79c6&#34;&gt;.&lt;/span&gt;isalpha()])
+    set2 &lt;span style=&#34;color:#ff79c6&#34;&gt;=&lt;/span&gt; Counter([str2[i:i&lt;span style=&#34;color:#ff79c6&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#bd93f9&#34;&gt;2&lt;/span&gt;]&lt;span style=&#34;color:#ff79c6&#34;&gt;.&lt;/span&gt;upper() &lt;span style=&#34;color:#ff79c6&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#ff79c6&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#8be9fd;font-style:italic&#34;&gt;range&lt;/span&gt;(&lt;span style=&#34;color:#bd93f9&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#8be9fd;font-style:italic&#34;&gt;len&lt;/span&gt;(str2)&lt;span style=&#34;color:#ff79c6&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#bd93f9&#34;&gt;1&lt;/span&gt;) &lt;span style=&#34;color:#ff79c6&#34;&gt;if&lt;/span&gt; str2[i:i&lt;span style=&#34;color:#ff79c6&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#bd93f9&#34;&gt;2&lt;/span&gt;]&lt;span style=&#34;color:#ff79c6&#34;&gt;.&lt;/span&gt;isalpha()])
+    J &lt;span style=&#34;color:#ff79c6&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ff79c6&#34;&gt;lambda&lt;/span&gt; A, B: &lt;span style=&#34;color:#bd93f9&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#ff79c6&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#8be9fd;font-style:italic&#34;&gt;len&lt;/span&gt;(A) &lt;span style=&#34;color:#ff79c6&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#bd93f9&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#ff79c6&#34;&gt;and&lt;/span&gt; &lt;span style=&#34;color:#8be9fd;font-style:italic&#34;&gt;len&lt;/span&gt;(B) &lt;span style=&#34;color:#ff79c6&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#bd93f9&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#ff79c6&#34;&gt;else&lt;/span&gt; &lt;span style=&#34;color:#8be9fd;font-style:italic&#34;&gt;sum&lt;/span&gt;((A &lt;span style=&#34;color:#ff79c6&#34;&gt;&amp;amp;&lt;/span&gt; B)&lt;span style=&#34;color:#ff79c6&#34;&gt;.&lt;/span&gt;values()) &lt;span style=&#34;color:#ff79c6&#34;&gt;/&lt;/span&gt; &lt;span style=&#34;color:#8be9fd;font-style:italic&#34;&gt;sum&lt;/span&gt;((A &lt;span style=&#34;color:#ff79c6&#34;&gt;|&lt;/span&gt; B)&lt;span style=&#34;color:#ff79c6&#34;&gt;.&lt;/span&gt;values())
+    &lt;span style=&#34;color:#ff79c6&#34;&gt;return&lt;/span&gt; math&lt;span style=&#34;color:#ff79c6&#34;&gt;.&lt;/span&gt;floor(J(set1, set2) &lt;span style=&#34;color:#ff79c6&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#bd93f9&#34;&gt;65536&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+      <author>ronalds.vilcins@gmail.com (Ronalds Vilcins)</author>
+      <guid>https://kimjunil.github.io/posts/algorithm-002/</guid>
+      <pubDate>Thu, 23 Dec 2021 12:39:07 +0900</pubDate>
+    </item>
+    
+    <item>
+      <title>[프로그래머스] LV2 전화번호 목록</title>
+      <link>https://kimjunil.github.io/posts/algorithm-001/</link>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&#34;https://programmers.co.kr/learn/courses/30/lessons/42577&#34;&gt;https://programmers.co.kr/learn/courses/30/lessons/42577&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;요약&#34;&gt;요약 &lt;a href=&#34;#%ec%9a%94%ec%95%bd&#34; class=&#34;hash g&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;
+&lt;p&gt;숫자로 이루어진 문자열 리스트가 주어졌을 때 어떤 문자열이 다른 문자열의 접두어가 될 수 있는지 Boolean으로 반환한다.&lt;/p&gt;
+&lt;h1 id=&#34;제한-사항&#34;&gt;제한 사항 &lt;a href=&#34;#%ec%a0%9c%ed%95%9c-%ec%82%ac%ed%95%ad&#34; class=&#34;hash g&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;phone_book의 길이는 1 이상 1,000,000 이하
+&lt;ul&gt;
+&lt;li&gt;각 전화번호의 길이는 1 이상 20 이하&lt;/li&gt;
+&lt;li&gt;같은 전화번호가 중복되지 않는다&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;try-1&#34;&gt;Try 1 &lt;a href=&#34;#try-1&#34; class=&#34;hash g&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;
+&lt;p&gt;효율성은 고려하지 않고 직관적으로 생각나는대로 만들어본 코드&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#ff79c6&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#50fa7b&#34;&gt;solution&lt;/span&gt;(phone_book):
+    phone_book &lt;span style=&#34;color:#ff79c6&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#8be9fd;font-style:italic&#34;&gt;sorted&lt;/span&gt;(phone_book)
+    &lt;span style=&#34;color:#ff79c6&#34;&gt;for&lt;/span&gt; i, a &lt;span style=&#34;color:#ff79c6&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#8be9fd;font-style:italic&#34;&gt;enumerate&lt;/span&gt;(phone_book):
+        &lt;span style=&#34;color:#ff79c6&#34;&gt;for&lt;/span&gt; b &lt;span style=&#34;color:#ff79c6&#34;&gt;in&lt;/span&gt; phone_book[i&lt;span style=&#34;color:#ff79c6&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#bd93f9&#34;&gt;1&lt;/span&gt;:]:
+            &lt;span style=&#34;color:#ff79c6&#34;&gt;if&lt;/span&gt; b&lt;span style=&#34;color:#ff79c6&#34;&gt;.&lt;/span&gt;startswith(a):
+                &lt;span style=&#34;color:#ff79c6&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ff79c6&#34;&gt;False&lt;/span&gt;
+            
+    &lt;span style=&#34;color:#ff79c6&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ff79c6&#34;&gt;True&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;정확성 테스트 15/15&lt;/li&gt;
+&lt;li&gt;효율성 테스트 2/4&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;try-2&#34;&gt;Try 2 &lt;a href=&#34;#try-2&#34; class=&#34;hash g&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;
+&lt;p&gt;길이가 가장 긴 전화번호는 다른 번호의 접두어가 될 수 없으므로 무시한다&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#ff79c6&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#50fa7b&#34;&gt;solution&lt;/span&gt;(phone_book):
+    phone_book &lt;span style=&#34;color:#ff79c6&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#8be9fd;font-style:italic&#34;&gt;sorted&lt;/span&gt;(phone_book)
+    max_len &lt;span style=&#34;color:#ff79c6&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#8be9fd;font-style:italic&#34;&gt;len&lt;/span&gt;(&lt;span style=&#34;color:#8be9fd;font-style:italic&#34;&gt;max&lt;/span&gt;(phone_book, key&lt;span style=&#34;color:#ff79c6&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#8be9fd;font-style:italic&#34;&gt;len&lt;/span&gt;))
+    &lt;span style=&#34;color:#ff79c6&#34;&gt;for&lt;/span&gt; i, a &lt;span style=&#34;color:#ff79c6&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#8be9fd;font-style:italic&#34;&gt;enumerate&lt;/span&gt;(phone_book):
+        &lt;span style=&#34;color:#ff79c6&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#8be9fd;font-style:italic&#34;&gt;len&lt;/span&gt;(a) &lt;span style=&#34;color:#ff79c6&#34;&gt;&amp;gt;=&lt;/span&gt; max_len:
+            &lt;span style=&#34;color:#ff79c6&#34;&gt;continue&lt;/span&gt;
+        &lt;span style=&#34;color:#ff79c6&#34;&gt;for&lt;/span&gt; b &lt;span style=&#34;color:#ff79c6&#34;&gt;in&lt;/span&gt; [x &lt;span style=&#34;color:#ff79c6&#34;&gt;for&lt;/span&gt; x &lt;span style=&#34;color:#ff79c6&#34;&gt;in&lt;/span&gt; phone_book[i&lt;span style=&#34;color:#ff79c6&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#bd93f9&#34;&gt;1&lt;/span&gt;:]]:
+            &lt;span style=&#34;color:#ff79c6&#34;&gt;if&lt;/span&gt; b&lt;span style=&#34;color:#ff79c6&#34;&gt;.&lt;/span&gt;startswith(a):
+                &lt;span style=&#34;color:#ff79c6&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ff79c6&#34;&gt;False&lt;/span&gt;
+            
+    &lt;span style=&#34;color:#ff79c6&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ff79c6&#34;&gt;True&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;정확성 테스트 15/15&lt;/li&gt;
+&lt;li&gt;효율성 테스트 3/4&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;try-3&#34;&gt;Try 3 &lt;a href=&#34;#try-3&#34; class=&#34;hash g&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;
+&lt;p&gt;문제의 카테고리가 해시인 것에 착안하여 접근한 풀이&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#ff79c6&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#50fa7b&#34;&gt;solution&lt;/span&gt;(phone_book):
+    dic &lt;span style=&#34;color:#ff79c6&#34;&gt;=&lt;/span&gt; {x:idx &lt;span style=&#34;color:#ff79c6&#34;&gt;for&lt;/span&gt; idx, x &lt;span style=&#34;color:#ff79c6&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#8be9fd;font-style:italic&#34;&gt;enumerate&lt;/span&gt;(phone_book)}
+    
+    &lt;span style=&#34;color:#ff79c6&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#ff79c6&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#8be9fd;font-style:italic&#34;&gt;range&lt;/span&gt;(&lt;span style=&#34;color:#8be9fd;font-style:italic&#34;&gt;len&lt;/span&gt;(phone_book)):
+        &lt;span style=&#34;color:#ff79c6&#34;&gt;for&lt;/span&gt; j &lt;span style=&#34;color:#ff79c6&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#8be9fd;font-style:italic&#34;&gt;range&lt;/span&gt;(&lt;span style=&#34;color:#8be9fd;font-style:italic&#34;&gt;len&lt;/span&gt;(phone_book[i])):
+            &lt;span style=&#34;color:#ff79c6&#34;&gt;if&lt;/span&gt; dic&lt;span style=&#34;color:#ff79c6&#34;&gt;.&lt;/span&gt;get(phone_book[i][:j]) &lt;span style=&#34;color:#ff79c6&#34;&gt;!=&lt;/span&gt; &lt;span style=&#34;color:#ff79c6&#34;&gt;None&lt;/span&gt;:
+                &lt;span style=&#34;color:#ff79c6&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ff79c6&#34;&gt;False&lt;/span&gt;
+            
+    &lt;span style=&#34;color:#ff79c6&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ff79c6&#34;&gt;True&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;정확성 테스트 15/15&lt;/li&gt;
+&lt;li&gt;효율성 테스트 4/4&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+      <author>ronalds.vilcins@gmail.com (Ronalds Vilcins)</author>
+      <guid>https://kimjunil.github.io/posts/algorithm-001/</guid>
+      <pubDate>Tue, 21 Dec 2021 16:04:07 +0900</pubDate>
+    </item>
+    
+  </channel>
+</rss>

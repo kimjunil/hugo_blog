@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on My New Hugo Site</title>
+    <link>https://kimjunil.github.io/tags/</link>
+    <description>Recent content in Tags on My New Hugo Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <lastBuildDate>Thu, 23 Dec 2021 12:39:07 +0900</lastBuildDate><atom:link href="https://kimjunil.github.io/tags/atom.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>algorithm</title>
+      <link>https://kimjunil.github.io/tags/algorithm/</link>
+      <pubDate>Thu, 23 Dec 2021 12:39:07 +0900</pubDate>
+      
+      <guid>https://kimjunil.github.io/tags/algorithm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>programmers</title>
+      <link>https://kimjunil.github.io/tags/programmers/</link>
+      <pubDate>Thu, 23 Dec 2021 12:39:07 +0900</pubDate>
+      
+      <guid>https://kimjunil.github.io/tags/programmers/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
